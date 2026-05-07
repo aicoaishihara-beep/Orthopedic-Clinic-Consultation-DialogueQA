@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>整形外科：腰痛診断と治療 Q&A</title>
+
+<style>
+body{
+  margin:0;
+  background:#eef2f3;
+  font-family:sans-serif;
+}
+
+.app{
+  max-width:430px;
+  margin:0 auto;
+  background:#2e3a59;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+header{
+  background:#156d36;
+  color:#fff;
+  text-align:center;
+  padding:14px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.lang-buttons{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  padding:8px;
+  background:#2e3a59;
+}
+
+.lang-buttons button{
+  padding:8px 14px;
+  border:none;
+  border-radius:8px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+#dialogueBox{
+  flex:1;
+  overflow-y:auto;
+  padding:10px;
+}
+
+.line{
+  display:flex;
+  margin:8px 0;
+}
+
+.left{ justify-content:flex-start; }
+.right{ justify-content:flex-end; }
+
+.bubble{
+  max-width:78%;
+  padding:10px;
+  border-radius:18px;
+  font-weight:bold;
+  line-height:1.5;
+}
+
+.left .bubble{
+  background:#bde4ff;
+}
+
+.right .bubble{
+  background:#fff3b2;
+}
+
+.section{
+  text-align:center;
+  color:#fff;
+  font-weight:bold;
+  margin:14px 0 6px;
+  font-size:15px;
+}
+
+button.audio{
+  margin-top:6px;
+  padding:4px 8px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button.answer{
+  padding:6px 10px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.answerBox{
+  margin-top:8px;
+  font-weight:normal;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>整形外科：腰痛診断と治療 Q&A</header>
+
+<div class="lang-buttons">
+  <button onclick="changeLang('EN')">English</button>
+  <button onclick="changeLang('JA')">日本語</button>
+</div>
+
+<div id="dialogueBox"></div>
+
+</div>
+
+<script>
+
+let lang = "EN";
+
+const dialogueData = [
+
+{
+section:"① 初診受付 / First Visit Reception",
+no:"1-1",
+q:{
+JA:"患者さんが病院に来た理由は何ですか？",
+EN:"Why did the patient come to the hospital?"
+},
+a:[{
+JA:"腰痛の治療のために病院に来ました。",
+EN:"The patient came to the hospital for treatment of lower back pain."
+}]
+},
+
+{
+no:"1-2",
+q:{
+JA:"受付担当者は患者さんに最初に何を確認しましたか？",
+EN:"What did the receptionist first confirm with the patient?"
+},
+a:[{
+JA:"今回が初診かどうかを確認しました。",
+EN:"The receptionist confirmed whether it was the patient's first visit."
+}]
+},
+
+{
+no:"1-3",
+q:{
+JA:"患者は受付で何を見せるように言われましたか？",
+EN:"What was the patient asked to show at reception?"
+},
+a:[{
+JA:"保険証またはマイナンバーカードを提示するよう求められました。",
+EN:"The patient was asked to present an insurance card or My Number card."
+}]
+},
+
+{
+section:"② 問診票 / Questionnaire",
+no:"2-1",
+q:{
+JA:"受付担当者は患者さんに何を書いてくださいと言いましたか？",
+EN:"What did the receptionist ask the patient to write?"
+},
+a:[{
+JA:"問診票を書いてくださいと言いました。",
+EN:"The receptionist asked the patient to fill out the questionnaire."
+}]
+},
+
+{
+no:"2-2",
+q:{
+JA:"誰が患者の話を通訳することになりましたか？",
+EN:"Who was going to interpret for the patient?"
+},
+a:[{
+JA:"患者のパートナーが手伝うことになりました。",
+EN:"The patient's partner would help interpret."
+}]
+},
+
+{
+section:"③ 看護師との問診 / Nurse Interview",
+no:"3-1",
+q:{
+JA:"腰はいつから痛くなりましたか？",
+EN:"Since when has the back been hurting?"
+},
+a:[{
+JA:"約半年前から痛くなりました。",
+EN:"It started hurting about six months ago."
+}]
+},
+
+{
+no:"3-2",
+q:{
+JA:"患者はどのような仕事をしていますか？",
+EN:"What kind of work did the patient do?"
+},
+a:[{
+JA:"工場で重いものを運ぶ仕事をしています。",
+EN:"The patient works carrying heavy items in a factory."
+}]
+},
+
+{
+no:"3-3",
+q:{
+JA:"患者はしびれを感じますか？",
+EN:"Does the patient feel numbness?"
+},
+a:[{
+JA:"はい、右足に少し感じます。",
+EN:"Yes, a little numbness is felt in the right leg."
+}]
+},
+
+{
+section:"④ 医師の診察 / Doctor Examination",
+no:"4-1",
+q:{
+JA:"患者はどんなときに腰痛を感じると答えましたか？",
+EN:"When did the patient say they feel back pain?"
+},
+a:[{
+JA:"立つとき、座るとき、前かがみになるときです。",
+EN:"When standing, sitting, or bending forward."
+}]
+},
+
+{
+no:"4-2",
+q:{
+JA:"患者は何を気にしていますか？",
+EN:"What is the patient worried about?"
+},
+a:[{
+JA:"ヘルニアかもしれないと心配しています。",
+EN:"The patient is worried it may be a herniated disc."
+}]
+},
+
+{
+no:"4-3",
+q:{
+JA:"患者は痛みやしびれがどこにあると答えましたか？",
+EN:"Where did the patient say the pain and numbness were?"
+},
+a:[{
+JA:"腰が痛く、右足にしびれがあります。",
+EN:"The lower back hurts and there is numbness in the right leg."
+}]
+},
+
+{
+section:"⑤ 検査と今後の処置 / Tests and Treatment",
+no:"5-1",
+q:{
+JA:"医師はどんな検査をすすめましたか？",
+EN:"What test did the doctor recommend?"
+},
+a:[{
+JA:"MRI検査をすすめました。",
+EN:"The doctor recommended an MRI examination."
+}]
+},
+
+{
+no:"5-2",
+q:{
+JA:"患者が手術の必要性を聞いた結果はどうでしたか？",
+EN:"What was the result when the patient asked about surgery?"
+},
+a:[{
+JA:"現時点では必要ないと答えました。",
+EN:"The doctor answered that surgery was not necessary at this time."
+}]
+},
+
+{
+no:"5-3",
+q:{
+JA:"悪化したらどうすればいいか尋ねたとき、医師は何と答えましたか？",
+EN:"What did the doctor answer when asked what to do if symptoms worsen?"
+},
+a:[{
+JA:"すぐ病院に来てくださいと答えました。",
+EN:"The doctor said to come to the hospital immediately."
+}]
+}
+
+];
+
+const box = document.getElementById("dialogueBox");
+
+function render(){
+  box.innerHTML="";
+
+  dialogueData.forEach(item=>{
+
+    if(item.section){
+      box.innerHTML += `<div class="section">${item.section}</div>`;
+    }
+
+    box.innerHTML += `
+      <div class="line left">
+        <div class="bubble">
+          Q${item.no}. ${item.q[lang]}<br>
+          <button class="audio" onclick="playAudio('Q${item.no}')">🔊</button>
+        </div>
+      </div>
+
+      <div class="line right">
+        <div class="bubble">
+          <button class="answer" onclick="showAnswer('${item.no}')">回答</button>
+          <div class="answerBox" id="a${item.no.replace('-','_')}"></div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function showAnswer(no){
+
+  const item = dialogueData.find(x => x.no === no);
+  const id = "a" + no.replace('-','_');
+  const div = document.getElementById(id);
+
+  div.innerHTML = item.a.map((ans,i)=>
+    `${ans[lang]}
+     <button class="audio" onclick="playAudio('Q${no}_A${i+1}')">🔊</button>`
+  ).join("<br>");
+}
+
+function playAudio(name){
+  const audio = new Audio(`audio_QA/${name}_${lang}.mp3`);
+  audio.play().catch(err => console.log("audio error", err));
+}
+
+function changeLang(l){
+  lang = l;
+  render();
+}
+
+render();
+
+</script>
+
+</body>
+</html>
